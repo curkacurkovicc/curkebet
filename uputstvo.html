@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uputstvo — ćurkebet</title>
+<meta name="theme-color" content="#0e1014">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0e1014;--card:#171a21;--card2:#1e222b;--line:#2a2f3a;--text:#eef0f4;--mut:#8b92a1;--yes:#2fd27a;--yes-d:rgba(47,210,122,.14);--no:#ff5a67;--no-d:rgba(255,90,103,.14);--gold:#ffc53d}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Space Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  header{position:sticky;top:0;z-index:5;background:rgba(14,16,20,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .top{max-width:680px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 14px}
+  .logo{font-weight:700;font-size:20px;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+  .logo span{color:var(--gold)}
+  .btn{background:var(--gold);color:#1a1405;font-weight:700;padding:8px 14px;border-radius:999px;text-decoration:none;font-size:14px}
+  main{max-width:680px;margin:0 auto;padding:6px 16px 60px}
+  h1{font-size:30px;letter-spacing:-.02em;margin:22px 0 6px}
+  .lead{color:#c3c8d2;font-size:16px;line-height:1.55;margin:0 0 8px}
+  nav.toc{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 4px}
+  nav.toc a{padding:6px 12px;border-radius:99px;border:1px solid var(--line);color:var(--mut);font-size:13px;text-decoration:none}
+  section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;scroll-margin-top:70px}
+  h2{font-size:19px;margin:0 0 10px;display:flex;gap:10px;align-items:center}
+  h2 .n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--card2);border:1px solid var(--line);display:grid;place-items:center;font-size:14px;color:var(--gold)}
+  p,li{color:#c3c8d2;font-size:15px;line-height:1.6}
+  p{margin:8px 0}
+  ul,ol{padding-left:20px;margin:8px 0}
+  li{margin:4px 0}
+  b{color:var(--text)}
+  .gold{color:var(--gold)} .yes{color:var(--yes)} .no{color:var(--no)}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+  .stat{background:var(--card2);border-radius:12px;padding:12px}
+  .stat b{display:block;font-size:24px;color:var(--gold)}
+  .stat span{color:var(--mut);font-size:13px}
+  .ex{background:var(--card2);border-radius:12px;padding:12px 14px;margin:10px 0}
+  .ex .row{display:flex;justify-content:space-between;gap:10px;padding:4px 0;font-size:15px;font-variant-numeric:tabular-nums}
+  .ex .row span:first-child{color:var(--mut)}
+  .bar{height:8px;border-radius:99px;background:var(--no);overflow:hidden;margin:8px 0}
+  .bar i{display:block;height:100%;width:75%;background:var(--yes)}
+  .note{border-left:3px solid var(--gold);padding:8px 12px;background:#1f1b0f;border-radius:0 10px 10px 0;margin:10px 0}
+  details{border-top:1px solid var(--line);padding:10px 0}
+  details:first-of-type{border-top:0}
+  summary{cursor:pointer;font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between;gap:10px}
+  summary::after{content:"+";color:var(--mut)}
+  details[open] summary::after{content:"–"}
+  .cta{display:block;text-align:center;margin:24px 0 0;padding:15px;border-radius:12px;background:var(--gold);color:#1a1405;font-weight:700;text-decoration:none;font-size:16px}
+</style>
+</head>
+<body>
+<header><div class="top"><a class="logo" href="/">🦃 ćurke<span>bet</span></a><a class="btn" href="/">Igraj →</a></div></header>
+<main>
+  <h1>Uputstvo</h1>
+  <p class="lead">ćurkebet je kladionica za našu ekipu. Postavljamo pitanja na koja je odgovor <b class="yes">DA</b> ili <b class="no">NE</b>, kladimo se izmišljenim parama 🪙 i na kraju se vidi ko najbolje predviđa.</p>
+  <nav class="toc">
+    <a href="#start">Početak</a><a href="#pare">Pare</a><a href="#klađenje">Klađenje</a><a href="#procenat">Procenat</a>
+    <a href="#isplata">Isplata</a><a href="#pitanje">Novo pitanje</a><a href="#resavanje">Rešavanje</a><a href="#rang">Rang lista</a><a href="#faq">Pitanja</a>
+  </nav>
+
+  <section id="start">
+    <h2><span class="n">1</span>Početak</h2>
+    <ol>
+      <li>Otvori link koji si dobio i izaberi <b>Novi nalog</b>.</li>
+      <li>Smisli korisničko ime (to vide svi) i šifru od bar 6 znakova.</li>
+      <li>Ako aplikacija traži <b>pozivni kod</b>, nalazi se u linku koji si dobio ili ga pitaj onoga ko te pozvao.</li>
+    </ol>
+    <p>Savet: na telefonu dodaj ćurkebet na početni ekran (Safari: <b>Podeli → Dodaj na početni ekran</b>, Chrome: <b>⋮ → Dodaj na početni ekran</b>), pa ga otvaraš kao aplikaciju.</p>
+  </section>
+
+  <section id="pare">
+    <h2><span class="n">2</span>Pare</h2>
+    <div class="stats">
+      <div class="stat"><b>🪙 1.000</b><span>na početku, čim napraviš nalog</span></div>
+      <div class="stat"><b>+100</b><span>svakog dana kad uđeš u aplikaciju</span></div>
+    </div>
+    <p>Dnevnih 100 dobijaš kad prvi put tog dana otvoriš aplikaciju. Novi dan počinje u ponoć. <b>Ako neki dan ne uđeš, tih 100 propada</b> i ne nadoknađuje se.</p>
+    <p>Pare su izmišljene i služe samo za takmičenje. Pravim novcem se ovde ne igra.</p>
+  </section>
+
+  <section id="klađenje">
+    <h2><span class="n">3</span>Kako se kladiš</h2>
+    <ol>
+      <li>Na kartici <b>Tržišta</b> otvori neko pitanje.</li>
+      <li>Izaberi <b class="yes">DA</b> ili <b class="no">NE</b>.</li>
+      <li>Upiši iznos ili tapni +10, +50, +100 ili <b>Sve</b>.</li>
+      <li>Ispod piše koliko otprilike dobijaš ako pogodiš. Tapni <b>Uloži</b>.</li>
+    </ol>
+    <p>Na isto pitanje možeš da se kladiš više puta, čak i na obe strane. <b>Opklada ne može da se povuče</b>, pa dobro razmisli. Klađenje se zatvara kad prođe rok pitanja.</p>
+  </section>
+
+  <section id="procenat">
+    <h2><span class="n">4</span>Šta znači procenat</h2>
+    <p>Svako pitanje ima svoj bazen para. Procenat pokazuje koliki deo bazena je uložen na <b class="yes">DA</b>.</p>
+    <div class="bar"><i></i></div>
+    <p>Kad piše <b>75%</b>, ekipa svojim parama kaže da je DA prilično verovatno. Ako misliš da ekipa greši, tu možeš najviše da zaradiš.</p>
+  </section>
+
+  <section id="isplata">
+    <h2><span class="n">5</span>Kako se isplaćuje</h2>
+    <p>Kad je pitanje rešeno, <b>ceo bazen se deli onima koji su pogodili</b>, srazmerno tome koliko je ko uložio.</p>
+    <div class="ex">
+      <div class="row"><span>Na DA je uloženo</span><b class="yes">🪙 300</b></div>
+      <div class="row"><span>Na NE je uloženo</span><b class="no">🪙 100</b></div>
+      <div class="row"><span>Ti uložiš na NE</span><b class="no">🪙 100</b></div>
+      <div class="row"><span>Bazen je sada</span><b>🪙 500</b> </div>
+      <div class="row"><span>Na NE ukupno</span><b>🪙 200</b> </div>
+    </div>
+    <p>Ako bude <b class="no">NE</b>: ti imaš polovinu svih para na NE, pa dobijaš polovinu bazena, <b class="gold">🪙 250</b>. Uložio si 100, zaradio si 150.</p>
+    <p>Ako bude <b class="yes">DA</b>: gubiš svojih 100.</p>
+    <div class="note">Što manje ljudi veruje u ishod koji se na kraju desi, to je veća isplata.</div>
+    <p>Ako niko nije pogodio, ili je pitanje poništeno, <b>svi dobijaju svoj ulog nazad</b>.</p>
+    <p>Procena dobitka koju vidiš pre uloga važi za trenutno stanje. Ako se posle tebe drugi klade, isplata se menja.</p>
+  </section>
+
+  <section id="pitanje">
+    <h2><span class="n">6</span>Postavljanje pitanja</h2>
+    <p>Svako može da postavi pitanje: tapni <b>+ Novo pitanje</b> na kartici Tržišta.</p>
+    <ul>
+      <li><b>Pitanje</b> mora da ima jasan odgovor DA ili NE. „Hoće li Marko stići pre 20h u subotu?” je dobro, „Kakav će biti vikend?” nije.</li>
+      <li><b>Kako se rešava</b>: napiši tačno šta se računa kao DA, da se posle niko ne svađa.</li>
+      <li><b>Rok</b>: do kad mogu da se primaju opklade. Najbolje pre nego što se ishod sazna.</li>
+    </ul>
+  </section>
+
+  <section id="resavanje">
+    <h2><span class="n">7</span>Rešavanje — obaveza onoga ko pita</h2>
+    <div class="note"><b>Ko postavi pitanje, mora i da ga reši.</b> Niko drugi to ne može da uradi umesto njega.</div>
+    <ol>
+      <li>Kad se zna ishod, otvori svoje pitanje.</li>
+      <li>Tapni <b>Ishod: DA</b> ili <b>Ishod: NE</b>, pa tapni još jednom da potvrdiš.</li>
+      <li>Isplata ide odmah i <b>ne može da se vrati</b>.</li>
+    </ol>
+    <p>Kad prođe rok, a ti još nisi rešio pitanje, na vrhu ekrana ti stoji podsetnik. Ostali vide da čekaju tebe.</p>
+    <p>Ako se ishod sazna pre roka, možeš da rešiš i ranije. Ako pitanje ispadne nejasno ili se događaj otkaže, tapni <b>Poništi</b> i svi dobijaju ulog nazad.</p>
+    <p>Na sopstveno pitanje smeš da se kladiš, ali ga rešavaš pošteno. Ovo je igra među drugarima.</p>
+  </section>
+
+  <section id="rang">
+    <h2><span class="n">8</span>Rang lista</h2>
+    <ul>
+      <li><b>Ukupno</b> su tvoje slobodne pare plus ono što ti je uloženo u pitanja koja još nisu rešena.</li>
+      <li><b>Profit</b> je ukupno minus sve što si dobio besplatno (početnih 1.000 i dnevni bonusi). Profit pokazuje koliko si zaradio predviđanjem, i po njemu se vidi ko je pravi prorok.</li>
+    </ul>
+  </section>
+
+  <section id="faq">
+    <h2><span class="n">?</span>Česta pitanja</h2>
+    <details><summary>Zaboravio sam šifru.</summary><p>Javi se onome ko je postavio aplikaciju. Šifru ne može niko da pročita, ali može da ti napravi novu. Kad se prijaviš, šifru menjaš na kartici <b>Nalog</b>.</p></details>
+    <details><summary>Aplikacija se dugo učitava.</summary><p>Ako je niko nije koristio neko vreme, server „zaspi”, pa prvo otvaranje traje oko pola minuta. Posle toga radi normalno.</p></details>
+    <details><summary>Ostao sam bez para.</summary><p>Sutra dobijaš novih 100. Uđi svaki dan i ne stavljaj sve na jednu kartu.</p></details>
+    <details><summary>Mogu li da povučem opkladu?</summary><p>Ne može. Uloženo ostaje u bazenu dok se pitanje ne reši ili poništi.</p></details>
+    <details><summary>Neko neće da reši svoje pitanje.</summary><p>Podsetnik mu stoji u aplikaciji, ali ga cimnite i u grupi 🙂 Dok se ne reši, vaše pare su u igri i računaju se u „Ukupno”.</p></details>
+    <details><summary>Može li ko da vidi kako sam se kladio?</summary><p>Da, opklade su javne. Na svakom pitanju se vidi ko je koliko uložio i na šta.</p></details>
+  </section>
+
+  <a class="cta" href="/">Kreni da se kladiš 🦃</a>
+</main>
+</body>
+</html>

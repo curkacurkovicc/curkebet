@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ćurkebet</title>
+<meta name="theme-color" content="#0e1014">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e1014; --card:#171a21; --card2:#1e222b; --line:#2a2f3a; --text:#eef0f4; --mut:#8b92a1;
+    --yes:#2fd27a; --yes-d:rgba(47,210,122,.14); --no:#ff5a67; --no-d:rgba(255,90,103,.14);
+    --gold:#ffc53d; --acc:#7c8cff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Space Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+  input,textarea{font:inherit;color:var(--text)}
+  .wrap{max-width:680px;margin:0 auto;padding:0 14px 110px}
+  header{position:sticky;top:0;z-index:5;background:rgba(14,16,20,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .top{max-width:680px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 14px 8px}
+  .logo{font-weight:700;font-size:20px;letter-spacing:-.02em}
+  .logo span{color:var(--gold)}
+  .bal{display:flex;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--line);padding:6px 12px;border-radius:999px;font-weight:600;font-variant-numeric:tabular-nums}
+  .tabs{max-width:680px;margin:0 auto;display:flex;gap:4px;padding:0 10px 8px;overflow-x:auto}
+  .tab{padding:7px 12px;border-radius:999px;color:var(--mut);font-weight:500;font-size:14px;white-space:nowrap}
+  .tab.on{background:var(--text);color:var(--bg)}
+  .status{color:var(--mut);font-size:14px;padding:10px 0}
+  .banner{background:#2a2410;border:1px solid #57461a;color:#f5dc8f;border-radius:12px;padding:10px 12px;font-size:14px;margin:12px 0;line-height:1.45}
+  .banner button{display:block;text-align:left;color:var(--gold);font-weight:600;padding:4px 0;text-decoration:underline}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:12px 0}
+  .mk{display:block;width:100%;text-align:left}
+  .q{font-weight:600;font-size:16px;line-height:1.3}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .meta{color:var(--mut);font-size:13px;margin-top:8px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+  .bar{height:8px;border-radius:99px;background:var(--no);overflow:hidden;margin-top:10px}
+  .bar>i{display:block;height:100%;background:var(--yes)}
+  .pct{font-weight:700;font-size:22px;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pct small{font-size:12px;color:var(--mut);font-weight:500;margin-left:2px}
+  .badge{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:99px;background:var(--card2);color:var(--mut);white-space:nowrap}
+  .b-yes{background:var(--yes-d);color:var(--yes)} .b-no{background:var(--no-d);color:var(--no)}
+  .b-wait{background:rgba(255,197,61,.14);color:var(--gold)}
+  .sub{display:flex;gap:6px;margin:14px 0 2px;overflow-x:auto}
+  .chip{padding:6px 12px;border-radius:99px;border:1px solid var(--line);color:var(--mut);font-size:13px;white-space:nowrap}
+  .chip.on{border-color:var(--text);color:var(--text)}
+  .empty{text-align:center;color:var(--mut);padding:40px 10px;font-size:15px;line-height:1.5}
+  .fab{position:fixed;right:18px;bottom:22px;z-index:6;background:var(--gold);color:#1a1405;font-weight:700;padding:14px 20px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.4);font-size:15px}
+  .back{color:var(--mut);padding:12px 0 0;font-size:14px}
+  h2{font-size:22px;line-height:1.25;margin:10px 0 6px;letter-spacing:-.01em}
+  .desc{color:#c3c8d2;font-size:14px;line-height:1.5;white-space:pre-wrap;margin:6px 0 0}
+  .big{display:flex;align-items:flex-end;gap:14px;margin-top:4px}
+  .big .pct{font-size:40px;line-height:1}
+  .pools{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+  .pool{border-radius:12px;padding:10px 12px;font-size:13px}
+  .pool b{display:block;font-size:18px;font-variant-numeric:tabular-nums;margin-top:2px}
+  .side{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .side button{padding:14px;border-radius:12px;font-weight:700;font-size:17px;border:2px solid var(--line);color:var(--mut)}
+  .side .y.on{border-color:var(--yes);background:var(--yes-d);color:var(--yes)}
+  .side .n.on{border-color:var(--no);background:var(--no-d);color:var(--no)}
+  .amt{display:flex;align-items:center;gap:8px;margin-top:10px;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:4px 4px 4px 12px}
+  .amt input{flex:1;min-width:0;background:none;border:0;outline:0;font-size:20px;font-weight:600;padding:8px 0;font-variant-numeric:tabular-nums}
+  .quick{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+  .quick button{padding:6px 12px;border-radius:99px;background:var(--card2);border:1px solid var(--line);font-size:13px}
+  .prev{color:var(--mut);font-size:14px;margin-top:10px;min-height:20px}
+  .prev b{color:var(--text)}
+  .go{width:100%;margin-top:10px;padding:14px;border-radius:12px;font-weight:700;font-size:16px;background:var(--text);color:var(--bg)}
+  .go:disabled{opacity:.4}
+  .go.y{background:var(--yes);color:#06210f} .go.n{background:var(--no);color:#2a0509}
+  .go.ghost{background:var(--card2);color:var(--text);border:1px solid var(--line)}
+  .ctl{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
+  .ctl button{padding:10px 6px;border-radius:10px;border:1px solid var(--line);font-weight:600;font-size:14px}
+  .ctl .arm{background:var(--gold);color:#1a1405;border-color:var(--gold)}
+  .must{border-color:#57461a;background:#1f1b0f}
+  .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);font-weight:600}
+  .li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+  .li:first-child{border-top:0}
+  .nm{font-weight:600}
+  .you{font-size:11px;color:var(--gold);margin-left:6px;font-weight:600}
+  .num{font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+  .pos{color:var(--yes)} .neg{color:var(--no)}
+  .rank{width:28px;font-weight:700;color:var(--mut)}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:20;display:none;align-items:flex-end;justify-content:center}
+  .overlay.on{display:flex}
+  .sheet{background:var(--card);width:100%;max-width:680px;border-radius:20px 20px 0 0;padding:18px 16px 26px;border:1px solid var(--line);max-height:92vh;overflow:auto}
+  .field{margin-top:12px}
+  .field label{display:block;font-size:13px;color:var(--mut);margin-bottom:6px}
+  .field input,.field textarea{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:11px 12px;outline:0;font-size:16px}
+  .field textarea{min-height:70px;resize:vertical}
+  .field input:focus,.field textarea:focus{border-color:var(--acc)}
+  .toast{position:fixed;left:50%;top:70px;transform:translateX(-50%) translateY(-20px);opacity:0;transition:.25s;z-index:30;background:var(--gold);color:#1a1405;font-weight:700;padding:10px 18px;border-radius:999px;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.4);max-width:90vw;text-align:center}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast.err{background:var(--no);color:#fff}
+  .how{font-size:13px;color:var(--mut);line-height:1.55}
+  #auth{max-width:420px;margin:0 auto;padding:60px 18px}
+  #auth .logo{font-size:34px;text-align:center}
+  .tag{text-align:center;color:var(--mut);margin:6px 0 24px}
+  .err{color:var(--no);font-size:14px;min-height:20px;margin-top:10px}
+</style>
+</head>
+<body>
+
+<!-- ===== prijava / registracija ===== -->
+<section id="auth" style="display:none">
+  <div class="logo">🦃 ćurke<span>bet</span></div>
+  <div class="tag">Kladi se sa ekipom na šta god hoćete.</div>
+  <div class="side" style="margin-bottom:6px">
+    <button class="y on" id="tLogin" type="button">Prijava</button>
+    <button class="y" id="tReg" type="button">Novi nalog</button>
+  </div>
+  <form id="authForm" autocomplete="on">
+    <div class="field"><label for="au">Korisničko ime</label><input id="au" name="username" autocomplete="username" autocapitalize="off" required></div>
+    <div class="field"><label for="ap">Šifra</label><input id="ap" name="password" type="password" autocomplete="current-password" required></div>
+    <div class="field" id="inviteField" style="display:none"><label for="ai">Pozivni kod</label><input id="ai" autocapitalize="off"></div>
+    <div class="err" id="authErr"></div>
+    <button class="go" id="authGo" type="submit">Prijavi se</button>
+  </form>
+  <p class="how" style="text-align:center;margin-top:18px" id="authHint">Novi nalog dobija 🪙 1.000 za početak, i još 100 svakog dana kad uđeš.</p>
+  <p style="text-align:center;margin-top:8px"><a href="/uputstvo" style="color:var(--gold);font-weight:600">Kako se igra? Pročitaj uputstvo →</a></p>
+</section>
+
+<!-- ===== aplikacija ===== -->
+<div id="app" style="display:none">
+  <header>
+    <div class="top">
+      <div class="logo">🦃 ćurke<span>bet</span></div>
+      <div class="bal" id="bal">🪙 —</div>
+    </div>
+    <nav class="tabs">
+      <button class="tab on" data-v="markets">Tržišta</button>
+      <button class="tab" data-v="mine">Moje opklade</button>
+      <button class="tab" data-v="board">Rang lista</button>
+      <a class="tab" href="/uputstvo" style="text-decoration:none">Uputstvo</a>
+      <button class="tab" data-v="account">Nalog</button>
+    </nav>
+  </header>
+  <div class="wrap">
+    <div class="status" id="status">Učitavam…</div>
+    <main id="main"></main>
+  </div>
+  <button class="fab" id="fab">+ Novo pitanje</button>
+</div>
+
+<div class="overlay" id="ov">
+  <form class="sheet" id="newForm" autocomplete="off">
+    <div class="row"><div class="q" style="font-size:18px">Novo pitanje</div><button type="button" id="ovClose" class="chip">Zatvori</button></div>
+    <div class="field"><label for="fq">Pitanje (odgovor DA ili NE)</label><input id="fq" maxlength="200" placeholder="Hoće li Marko stići na vreme u subotu?" required></div>
+    <div class="field"><label for="fd">Kako se rešava (opciono)</label><textarea id="fd" maxlength="1000" placeholder="Računa se DA ako stigne pre 20:00."></textarea></div>
+    <div class="field"><label for="fc">Opklade se zatvaraju</label><input id="fc" type="datetime-local" required></div>
+    <p class="how">Kad prođe rok, <b style="color:var(--gold)">ti moraš da rešiš pitanje</b> — niko drugi ne može.</p>
+    <button class="go" type="submit" id="fsub">Objavi pitanje</button>
+  </form>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const S = { data:null, offset:0, view:'markets', filter:'open', market:null, side:'YES', formFor:null, armed:null, mode:'login', cfg:{} };
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = n => Math.floor(n + 1e-9).toLocaleString('sr-Latn-RS');
+const pad = n => String(n).padStart(2,'0');
+const now = () => Date.now() + S.offset;
+let toastT;
+function toast(t, err){ const el=$('#toast'); el.textContent=t; el.className='toast on'+(err?' err':''); clearTimeout(toastT); toastT=setTimeout(()=>el.className='toast',2600); }
+function setStatus(t){ $('#status').textContent = t; $('#status').style.display = t ? '' : 'none'; }
+function rel(ts){
+  const d = ts - now(), a = Math.abs(d), m = 60000, h = 60*m, day = 24*h;
+  let s;
+  if (a < h) s = Math.max(1, Math.round(a/m)) + ' min';
+  else if (a < day) s = Math.round(a/h) + ' h';
+  else { const n = Math.round(a/day); s = n + (n === 1 ? ' dan' : ' dana'); }
+  return d > 0 ? 'za ' + s : 'pre ' + s;
+}
+const dt = ts => new Date(ts).toLocaleString('sr-Latn-RS', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'});
+
+/* ---------- API ---------- */
+async function api(path, body){
+  const r = await fetch(path, { method: body ? 'POST' : 'GET', credentials: 'same-origin',
+    headers: body ? {'Content-Type':'application/json'} : {}, body: body ? JSON.stringify(body) : undefined });
+  let j = {}; try { j = await r.json(); } catch {}
+  if (r.status === 401 && !/\/api\/(login|password)/.test(path)) { showAuth(); throw new Error(j.error || 'Nisi prijavljen.'); }
+  if (!r.ok) throw new Error(j.error || 'Nešto nije u redu, pokušaj ponovo.');
+  return j;
+}
+let loading = false;
+async function load(){
+  if (loading) return; loading = true;
+  try {
+    const d = await api('/api/state');
+    S.data = d; S.offset = d.serverNow - Date.now();
+    showApp(); setStatus('');
+    if (d.bonus) toast(`+${d.daily} 🪙 dnevni bonus!`);
+    render();
+  } catch (e) { if (S.data) setStatus('Nema veze sa serverom, pokušavam ponovo…'); else if ($('#app').style.display !== 'none') setStatus(e.message); }
+  finally { loading = false; }
+}
+setInterval(() => { if (document.visibilityState === 'visible' && $('#app').style.display !== 'none') load(); }, 10000);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && S.data) load(); });
+
+/* ---------- derived data ---------- */
+function derive(){
+  const d = S.data, t = now(), markets = {};
+  for (const m0 of d.markets){
+    const m = { ...m0, YES:0, NO:0 };
+    for (const b of m.bets) m[b.side] += b.amount;
+    m.total = m.YES + m.NO;
+    m.prob = m.total ? m.YES / m.total : 0.5;
+    m.state = m.status === 'open' ? (t >= m.closesAt ? 'closed' : 'open') : m.status;
+    m.people = new Set(m.bets.map(b => b.userId)).size;
+    markets[m.id] = m;
+  }
+  const players = d.players.map(p => ({ ...p, worth: p.balance + p.open, profit: p.balance + p.open - p.bonusTotal }));
+  const me = players.find(p => p.id === d.me.id) || { balance:0, open:0, worth:0, profit:0, bonusTotal:0 };
+  return { markets, players, me };
+}
+
+/* ---------- rendering ---------- */
+function render(){
+  if (!S.data) return;
+  const D = derive();
+  $('#bal').textContent = '🪙 ' + fmt(D.me.balance);
+  $('#fab').style.display = (S.view === 'markets' && !S.market) ? '' : 'none';
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.v === S.view && !S.market));
+  if (S.market != null) return renderMarket(D);
+  S.formFor = null;
+  const main = $('#main');
+  if (S.view === 'markets') main.innerHTML = viewMarkets(D);
+  else if (S.view === 'mine') main.innerHTML = viewMine(D);
+  else if (S.view === 'board') main.innerHTML = viewBoard(D);
+  else main.innerHTML = viewAccount(D);
+}
+function badge(m){
+  if (m.state === 'resolved') return `<span class="badge ${m.outcome==='YES'?'b-yes':'b-no'}">Ishod: ${m.outcome==='YES'?'DA':'NE'}</span>`;
+  if (m.state === 'cancelled') return `<span class="badge">Poništeno</span>`;
+  if (m.state === 'closed') return `<span class="badge b-wait">Čeka rešenje</span>`;
+  return '';
+}
+function mySum(m, side){ return m.bets.filter(b => b.userId === S.data.me.id && (!side || b.side === side)).reduce((a,b) => a + b.amount, 0); }
+function mkCard(m){
+  const mine = mySum(m);
+  const time = m.state === 'open' ? 'zatvara se ' + rel(m.closesAt) : m.state === 'closed' ? 'rešava: ' + esc(m.creator) : '';
+  const must = m.state === 'closed' && m.creatorId === S.data.me.id;
+  return `<button class="card mk ${must?'must':''}" data-mk="${m.id}">
+    <div class="row" style="align-items:flex-start"><div class="q">${esc(m.q ?? m.question)}</div><div class="pct">${Math.round(m.prob*100)}%<small>DA</small></div></div>
+    <div class="bar"><i style="width:${(m.prob*100).toFixed(1)}%"></i></div>
+    <div class="meta">${badge(m)}<span>🪙 ${fmt(m.total)} u igri</span><span>${m.people} ${m.people===1?'igrač':'igrača'}</span>${time?`<span>${time}</span>`:''}${mine?`<span style="color:var(--gold)">tvoje: ${fmt(mine)}</span>`:''}</div>
+  </button>`;
+}
+function mustBanner(D){
+  const mine = Object.values(D.markets).filter(m => m.state === 'closed' && m.creatorId === S.data.me.id);
+  if (!mine.length) return '';
+  return `<div class="banner"><b>Moraš da rešiš ${mine.length === 1 ? 'pitanje' : mine.length + ' pitanja'}</b> — rok je prošao i svi čekaju isplatu:` +
+    mine.map(m => `<button data-mk="${m.id}">${esc(m.question)}</button>`).join('') + `</div>`;
+}
+function viewMarkets(D){
+  const all = Object.values(D.markets);
+  const open = all.filter(m => m.state === 'open').sort((a,b) => a.closesAt - b.closesAt);
+  const wait = all.filter(m => m.state === 'closed').sort((a,b) => a.closesAt - b.closesAt);
+  const done = all.filter(m => m.state === 'resolved' || m.state === 'cancelled').sort((a,b) => b.resolvedAt - a.resolvedAt);
+  const f = S.filter, list = f === 'open' ? open : f === 'wait' ? wait : done;
+  const chips = `<div class="sub">
+    <button class="chip ${f==='open'?'on':''}" data-f="open">Otvorena (${open.length})</button>
+    <button class="chip ${f==='wait'?'on':''}" data-f="wait">Čekaju rešenje (${wait.length})</button>
+    <button class="chip ${f==='done'?'on':''}" data-f="done">Rešena (${done.length})</button></div>`;
+  const body = list.length ? list.map(mkCard).join('')
+    : `<div class="empty">${f==='open' ? 'Još nema otvorenih pitanja.<br>Postavi prvo — npr. „Hoće li pasti sneg do petka?”' : 'Ništa ovde za sada.'}</div>`;
+  return mustBanner(D) + chips + body;
+}
+function viewMine(D){
+  const me = D.me;
+  const ms = Object.values(D.markets).filter(m => mySum(m) > 0)
+    .sort((a,b) => (a.state==='open'?0:1) - (b.state==='open'?0:1) || b.closesAt - a.closesAt);
+  const sum = `<div class="card"><div class="row"><div><div class="lbl">Ukupno</div><div class="pct" style="font-size:28px">🪙 ${fmt(me.worth)}</div></div>
+      <div style="text-align:right"><div class="lbl">Profit</div><div class="pct ${me.profit>=0?'pos':'neg'}" style="font-size:22px">${me.profit>=0?'+':''}${fmt(me.profit)}</div></div></div>
+      <div class="meta"><span>slobodno ${fmt(me.balance)}</span><span>u igri ${fmt(me.open)}</span><span>dobijeno besplatno ${fmt(me.bonusTotal)}</span></div></div>`;
+  if (!ms.length) return sum + `<div class="empty">Još nisi uložio ništa. Otvori neko pitanje sa liste tržišta.</div>`;
+  return sum + ms.map(m => {
+    const y = mySum(m,'YES'), n = mySum(m,'NO');
+    let res = '';
+    if (m.state === 'resolved' || m.state === 'cancelled'){
+      const got = m.bets.filter(b => b.userId === S.data.me.id).reduce((a,b) => a + (b.payout || 0), 0), p = got - y - n;
+      res = m.state === 'cancelled' ? '<span>ulog vraćen</span>' : `<span class="${p>=0?'pos':'neg'}">${p>=0?'+':''}${fmt(p)}</span>`;
+    } else {
+      res = `<span>ako DA: ${fmt(m.YES ? y/m.YES*m.total : 0)} · ako NE: ${fmt(m.NO ? n/m.NO*m.total : 0)}</span>`;
+    }
+    return `<button class="card mk" data-mk="${m.id}"><div class="row" style="align-items:flex-start"><div class="q">${esc(m.question)}</div><div class="pct">${Math.round(m.prob*100)}%<small>DA</small></div></div>
+      <div class="meta">${badge(m)}${y?`<span class="pos">DA ${fmt(y)}</span>`:''}${n?`<span class="neg">NE ${fmt(n)}</span>`:''}${res}</div></button>`;
+  }).join('');
+}
+function viewBoard(D){
+  const rows = D.players.slice().sort((a,b) => b.worth - a.worth || b.profit - a.profit);
+  const medal = i => ['🥇','🥈','🥉'][i] || (i+1);
+  return `<div class="card"><div class="row lbl" style="padding-bottom:6px"><span>Igrač</span><span>Ukupno · profit</span></div>` +
+    rows.map((s,i) => `<div class="li"><div class="row" style="justify-content:flex-start;gap:8px;min-width:0"><span class="rank">${medal(i)}</span>
+      <span class="nm">${esc(s.name)}</span>${s.id===S.data.me.id?'<span class="you">TI</span>':''}</div>
+      <div class="num">🪙 ${fmt(s.worth)}<div style="font-size:12px;font-weight:500" class="${s.profit>=0?'pos':'neg'}">${s.profit>=0?'+':''}${fmt(s.profit)}</div></div></div>`).join('') +
+    `</div><div class="how" style="padding:0 4px">Ukupno = slobodne pare + ono što je uloženo u otvorena pitanja. Profit = ukupno minus sve što je igrač dobio besplatno (početnih 1.000 + dnevni bonusi) — po tome se vidi ko najbolje predviđa.</div>`;
+}
+function viewAccount(D){
+  return `<div class="card"><div class="row"><div><div class="lbl">Prijavljen si kao</div><div class="q" style="font-size:20px;margin-top:2px">${esc(S.data.me.name)}</div></div>
+      <button class="chip" id="logout">Odjavi se</button></div></div>
+    <form class="card" id="pwForm"><div class="lbl">Promeni šifru</div>
+      <div class="field"><label for="po">Stara šifra</label><input id="po" type="password" autocomplete="current-password" required></div>
+      <div class="field"><label for="pn">Nova šifra</label><input id="pn" type="password" autocomplete="new-password" minlength="6" required></div>
+      <button class="go ghost" type="submit">Sačuvaj novu šifru</button></form>
+    <a class="card mk" href="/uputstvo" style="display:block;color:inherit;text-decoration:none"><div class="row"><div><div class="q">📖 Uputstvo</div><div class="how">Kako se igra, kako se isplaćuje, česta pitanja</div></div><span style="color:var(--mut)">→</span></div></a>`;
+}
+
+function renderMarket(D){
+  const m = D.markets[S.market], main = $('#main'), meId = S.data.me.id;
+  if (!m){ main.innerHTML = `<button class="back" data-back>← Nazad</button><div class="empty">Ovo pitanje ne postoji.</div>`; S.formFor = null; return; }
+  const sig = m.id + '|' + m.state;
+  if (S.formFor !== sig){
+    S.formFor = sig; S.armed = null;
+    const canBet = m.state === 'open';
+    const isCreator = m.creatorId === meId && (m.state === 'open' || m.state === 'closed');
+    main.innerHTML = `<button class="back" data-back>← Nazad</button>
+      <h2>${esc(m.question)}</h2>
+      <div class="meta" style="margin-top:0"><span>postavio/la ${esc(m.creator)}</span><span>${m.state==='open'?'zatvara se':'zatvoreno'} ${dt(m.closesAt)}</span></div>
+      ${m.description ? `<p class="desc">${esc(m.description)}</p>` : ''}
+      <div id="mkLive"></div>
+      ${canBet ? `<div class="card">
+        <div class="side"><button class="y ${S.side==='YES'?'on':''}" data-side="YES">DA</button><button class="n ${S.side==='NO'?'on':''}" data-side="NO">NE</button></div>
+        <div class="amt"><span>🪙</span><input id="amt" inputmode="numeric" placeholder="0" autocomplete="off"></div>
+        <div class="quick"><button data-q="10">+10</button><button data-q="50">+50</button><button data-q="100">+100</button><button data-q="max">Sve</button></div>
+        <div class="prev" id="prev"></div>
+        <button class="go ${S.side==='YES'?'y':'n'}" id="goBet">Uloži na ${S.side==='YES'?'DA':'NE'}</button></div>` : ''}
+      ${isCreator ? `<div class="card ${m.state==='closed'?'must':''}"><div class="lbl">${m.state==='closed' ? 'Rok je prošao — reši pitanje' : 'Ti si postavio ovo pitanje i ti ga rešavaš'}</div>
+        <div class="ctl"><button data-res="YES">Ishod: DA</button><button data-res="NO">Ishod: NE</button><button data-res="CANCEL">Poništi</button></div>
+        <div class="how" style="margin-top:8px">Tapni dvaput za potvrdu. Isplata ide odmah i ne može da se vrati.${m.state==='open'?' Možeš da rešiš i pre roka ako se ishod već zna.':''}</div></div>` : ''}
+      ${m.state==='closed' && !isCreator ? `<div class="banner">Rok je prošao. Čeka se da <b>${esc(m.creator)}</b> reši pitanje.</div>` : ''}
+      <div id="mkBets"></div>`;
+  }
+  const y = mySum(m,'YES'), n = mySum(m,'NO');
+  $('#mkLive').innerHTML = `<div class="card">
+    <div class="row"><div class="big"><div class="pct">${Math.round(m.prob*100)}%</div><div style="color:var(--mut);padding-bottom:4px">šansa za DA</div></div>${badge(m)}</div>
+    <div class="bar"><i style="width:${(m.prob*100).toFixed(1)}%"></i></div>
+    <div class="pools"><div class="pool" style="background:var(--yes-d)"><span class="pos">Na DA</span><b>🪙 ${fmt(m.YES)}</b>${m.YES?`<span style="color:var(--mut)">isplata ×${(m.total/m.YES).toFixed(2)}</span>`:''}</div>
+      <div class="pool" style="background:var(--no-d)"><span class="neg">Na NE</span><b>🪙 ${fmt(m.NO)}</b>${m.NO?`<span style="color:var(--mut)">isplata ×${(m.total/m.NO).toFixed(2)}</span>`:''}</div></div>
+    ${(y||n) ? `<div class="meta" style="color:var(--gold)">Tvoj ulog: ${y?`DA ${fmt(y)}`:''}${y&&n?' · ':''}${n?`NE ${fmt(n)}`:''}</div>` : ''}</div>`;
+  $('#mkBets').innerHTML = m.bets.length ? `<div class="card"><div class="lbl">Opklade</div>` + m.bets.slice(0,100).map(b =>
+    `<div class="li"><div><span class="nm">${esc(b.name)}</span>${b.userId===meId?'<span class="you">TI</span>':''}<div style="color:var(--mut);font-size:12px">${rel(b.ts)}${b.payout?` · dobio/la ${fmt(b.payout)}`:''}</div></div>
+     <div class="num ${b.side==='YES'?'pos':'neg'}">${b.side==='YES'?'DA':'NE'} · ${fmt(b.amount)}</div></div>`).join('') + `</div>`
+    : `<div class="empty" style="padding:20px">Još niko nije uložio.</div>`;
+  updatePreview(D);
+}
+function updatePreview(D){
+  const el = $('#prev'); if (!el) return;
+  D = D || derive();
+  const m = D.markets[S.market]; if (!m) return;
+  const cash = D.me.balance, x = Math.floor(+($('#amt').value || 0));
+  if (!x){ el.innerHTML = `Imaš <b>🪙 ${fmt(cash)}</b> na raspolaganju.`; return; }
+  if (x > cash){ el.innerHTML = `<span class="neg">Imaš samo 🪙 ${fmt(cash)}.</span>`; return; }
+  const win = x / (m[S.side] + x) * (m.total + x);
+  el.innerHTML = `Ako pogodiš dobijaš oko <b>🪙 ${fmt(win)}</b> (×${(win/x).toFixed(2)}), ako se ništa ne promeni.`;
+}
+
+/* ---------- actions ---------- */
+async function placeBet(){
+  const amount = Math.floor(+($('#amt').value || 0));
+  if (amount < 1) return toast('Unesi iznos.', true);
+  const btn = $('#goBet'); btn.disabled = true;
+  try {
+    await api(`/api/markets/${S.market}/bet`, { side: S.side, amount });
+    toast(`Uloženo ${fmt(amount)} na ${S.side==='YES'?'DA':'NE'}`);
+    $('#amt').value = '';
+    await load();
+  } catch (e) { toast(e.message, true); }
+  const b = $('#goBet'); if (b) b.disabled = false;
+}
+async function resolveMarket(outcome){
+  try {
+    await api(`/api/markets/${S.market}/resolve`, { outcome });
+    toast(outcome === 'CANCEL' ? 'Poništeno, ulozi vraćeni.' : `Rešeno: ${outcome==='YES'?'DA':'NE'} — isplaćeno!`);
+    S.formFor = null; await load();
+  } catch (e) { toast(e.message, true); }
+}
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('button'); if (!t) return;
+  if (t.dataset.v){ S.view = t.dataset.v; S.market = null; render(); scrollTo(0,0); return; }
+  if (t.dataset.f){ S.filter = t.dataset.f; render(); return; }
+  if (t.dataset.mk){ S.market = +t.dataset.mk; S.formFor = null; render(); scrollTo(0,0); return; }
+  if ('back' in t.dataset){ S.market = null; render(); return; }
+  if (t.dataset.side){ S.side = t.dataset.side;
+    document.querySelectorAll('[data-side]').forEach(b => b.classList.toggle('on', b.dataset.side === S.side));
+    const g = $('#goBet'); g.className = 'go ' + (S.side==='YES'?'y':'n'); g.textContent = 'Uloži na ' + (S.side==='YES'?'DA':'NE');
+    updatePreview(); return; }
+  if (t.dataset.q){ const i = $('#amt'), cash = derive().me.balance;
+    i.value = t.dataset.q === 'max' ? cash : Math.min(cash, (Math.floor(+i.value) || 0) + (+t.dataset.q)); updatePreview(); return; }
+  if (t.id === 'goBet'){ placeBet(); return; }
+  if (t.dataset.res){
+    if (S.armed === t.dataset.res){ S.armed = null; resolveMarket(t.dataset.res); return; }
+    S.armed = t.dataset.res;
+    document.querySelectorAll('[data-res]').forEach(b => { b.classList.toggle('arm', b === t); b.textContent = b === t ? 'Sigurno?' : ({YES:'Ishod: DA',NO:'Ishod: NE',CANCEL:'Poništi'})[b.dataset.res]; });
+    return; }
+  if (t.id === 'fab'){ openNew(); return; }
+  if (t.id === 'ovClose'){ $('#ov').classList.remove('on'); return; }
+  if (t.id === 'logout'){ api('/api/logout', {}).finally(() => { S.data = null; showAuth(); }); return; }
+});
+document.addEventListener('input', e => { if (e.target.id === 'amt'){ e.target.value = e.target.value.replace(/\D/g,''); updatePreview(); } });
+document.addEventListener('submit', async e => {
+  if (e.target.id !== 'pwForm') return;
+  e.preventDefault();
+  try { await api('/api/password', { oldPassword: $('#po').value, newPassword: $('#pn').value }); toast('Šifra promenjena.'); $('#po').value = $('#pn').value = ''; }
+  catch (err) { toast(err.message, true); }
+});
+$('#ov').addEventListener('click', e => { if (e.target.id === 'ov') $('#ov').classList.remove('on'); });
+
+function openNew(){
+  const d = new Date(Date.now() + 7*86400000); d.setHours(20,0,0,0);
+  $('#fq').value = ''; $('#fd').value = '';
+  $('#fc').value = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  $('#ov').classList.add('on'); setTimeout(() => $('#fq').focus(), 50);
+}
+$('#newForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const closesAt = new Date($('#fc').value).getTime();
+  $('#fsub').disabled = true;
+  try {
+    const r = await api('/api/markets', { question: $('#fq').value.trim(), description: $('#fd').value.trim(), closesAt });
+    $('#ov').classList.remove('on'); S.view = 'markets'; S.filter = 'open'; S.market = r.id; S.formFor = null;
+    await load(); toast('Pitanje objavljeno!');
+  } catch (err) { toast(err.message, true); }
+  $('#fsub').disabled = false;
+});
+
+/* ---------- prijava ---------- */
+function setMode(mode){
+  S.mode = mode;
+  $('#tLogin').classList.toggle('on', mode === 'login'); $('#tReg').classList.toggle('on', mode === 'reg');
+  $('#authGo').textContent = mode === 'login' ? 'Prijavi se' : 'Napravi nalog';
+  $('#ap').autocomplete = mode === 'login' ? 'current-password' : 'new-password';
+  $('#inviteField').style.display = (mode === 'reg' && S.cfg.inviteRequired) ? '' : 'none';
+  $('#authErr').textContent = '';
+}
+$('#tLogin').onclick = () => setMode('login');
+$('#tReg').onclick = () => setMode('reg');
+$('#authForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  $('#authErr').textContent = ''; $('#authGo').disabled = true;
+  try {
+    await api(S.mode === 'login' ? '/api/login' : '/api/register', { username: $('#au').value.trim(), password: $('#ap').value, invite: $('#ai').value.trim() });
+    $('#ap').value = ''; S.view = 'markets'; S.market = null;
+    await load();
+  } catch (err) { $('#authErr').textContent = err.message; }
+  $('#authGo').disabled = false;
+});
+function showAuth(){ $('#app').style.display = 'none'; $('#auth').style.display = ''; $('#ov').classList.remove('on'); }
+function showApp(){ $('#auth').style.display = 'none'; $('#app').style.display = ''; }
+
+(async () => {
+  const code = new URLSearchParams(location.search).get('kod');
+  if (code) $('#ai').value = code;
+  try { S.cfg = await (await fetch('/api/config')).json(); } catch {}
+  if (S.cfg.start) $('#authHint').textContent = `Novi nalog dobija 🪙 ${fmt(S.cfg.start)} za početak, i još ${S.cfg.daily} svakog dana kad uđeš.`;
+  setMode(code ? 'reg' : 'login');
+  try { await api('/api/state').then(d => { S.data = d; S.offset = d.serverNow - Date.now(); showApp(); setStatus(''); if (d.bonus) toast(`+${d.daily} 🪙 dnevni bonus!`); render(); }); }
+  catch { if (!S.data) showAuth(); }
+})();
+</script>
+</body>
+</html>

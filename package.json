@@ -1,0 +1,18 @@
+{
+  "name": "curkebet",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Prediction market za ekipu: nalozi, +100 dnevno, opklade DA/NE.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
+  }
+}
